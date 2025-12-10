@@ -17,6 +17,9 @@ interface NFT {
 interface LuckyEggGameProps {
   inventory: NFT[];
   onInventoryUpdate: (nfts: NFT[]) => void;
+  hatchCount: number;
+  onHatchCountUpdate: (count: number) => void;
+  dailyLimit: number;
 }
 
 type GameState = "idle" | "hatching" | "success" | "error" | "inventory";
@@ -24,11 +27,12 @@ type GameState = "idle" | "hatching" | "success" | "error" | "inventory";
 export default function LuckyEggGame({
   inventory,
   onInventoryUpdate,
+  hatchCount,
+  onHatchCountUpdate,
+  dailyLimit,
 }: LuckyEggGameProps) {
   const [address] = useAccounts();
   const [gameState, setGameState] = useState<GameState>("idle");
-  const [hatchCount, setHatchCount] = useState(0);
-  const [dailyLimit] = useState(5);
   const [resultNFT, setResultNFT] = useState<NFT | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +44,10 @@ export default function LuckyEggGame({
   }, [address]);
 
   const checkDailyHatchCount = async () => {
-    setHatchCount(2);
+    // Initialize hatch count on mount if not already set
+    if (hatchCount === 0) {
+      onHatchCountUpdate(2);
+    }
   };
 
   const handleHatch = async () => {
@@ -85,7 +92,7 @@ export default function LuckyEggGame({
       setResultNFT(newNFT);
       const updatedInventory = [...inventory, newNFT];
       onInventoryUpdate(updatedInventory);
-      setHatchCount(hatchCount + 1);
+      onHatchCountUpdate(hatchCount + 1);
       setGameState("success");
     } catch {
       setError("Hatching failed! Please try again.");

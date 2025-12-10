@@ -22,6 +22,9 @@ function App() {
   const [currentTab, setCurrentTab] = useState<string>("hatch");
   // Shared inventory state across all tabs
   const [inventory, setInventory] = useState<NFT[]>([]);
+  // Shared hatch count and daily limit across all tabs
+  const [hatchCount, setHatchCount] = useState(0);
+  const [dailyLimit] = useState(5);
 
   useEffect(() => {
     if (!address) return; // tránh lỗi khi chưa có address
@@ -57,6 +60,9 @@ function App() {
           <LuckyEggGame
             inventory={inventory}
             onInventoryUpdate={setInventory}
+            hatchCount={hatchCount}
+            onHatchCountUpdate={setHatchCount}
+            dailyLimit={dailyLimit}
           />
         )}
         {currentTab === "inventory" && (
