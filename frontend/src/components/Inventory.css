@@ -1,0 +1,493 @@
+/* src/components/Inventory.css */
+.inventory-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 2rem;
+  color: white;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.inventory-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn-back {
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-back:hover {
+  background: rgba(0, 150, 255, 0.2);
+  border-color: rgba(0, 212, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.inventory-title {
+  flex: 1;
+  font-size: 2rem;
+  margin: 0;
+  background: linear-gradient(135deg, #0096ff 0%, #00d4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.user-info {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.inventory-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-box:hover {
+  background: rgba(0, 150, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.stat-box.common {
+  border-color: rgba(158, 158, 158, 0.3);
+}
+
+.stat-box.common:hover {
+  background: rgba(158, 158, 158, 0.1);
+}
+
+.stat-box.rare {
+  border-color: rgba(42, 125, 225, 0.3);
+}
+
+.stat-box.rare:hover {
+  background: rgba(42, 125, 225, 0.1);
+}
+
+.stat-box.epic {
+  border-color: rgba(142, 68, 173, 0.3);
+}
+
+.stat-box.epic:hover {
+  background: rgba(142, 68, 173, 0.1);
+}
+
+.stat-count {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #00d4ff;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #b0b0b0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.inventory-content {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  min-height: 400px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 1rem;
+}
+
+.empty-icon {
+  font-size: 5rem;
+  margin: 0;
+  opacity: 0.5;
+  animation: bobbing 3s ease-in-out infinite;
+}
+
+.empty-text {
+  color: #b0b0b0;
+  text-align: center;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.nft-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1.5rem;
+}
+
+.nft-grid-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid;
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nft-grid-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 212, 255, 0.2);
+}
+
+.nft-grid-image {
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nft-grid-info {
+  text-align: center;
+  width: 100%;
+}
+
+.nft-grid-info h3 {
+  font-size: 0.95rem;
+  margin: 0.5rem 0 0.75rem 0;
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rarity-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+  }
+}
+
+/* Detail Modal */
+.nft-detail-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.nft-detail-modal {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  border-radius: 20px;
+  padding: 2.5rem;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  animation: slideUp 0.4s ease-out;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: white;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  background: rgba(255, 59, 48, 0.3);
+  border-color: rgba(255, 59, 48, 0.6);
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.detail-image {
+  font-size: 6rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-info h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #00d4ff;
+}
+
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-section label {
+  font-size: 0.85rem;
+  color: #b0b0b0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.rarity-circle-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: white;
+  margin-top: 0.5rem;
+  animation: pop 0.6s cubic-bezier(0.36, 0, 0.66, -0.56);
+}
+
+.circle-emoji {
+  font-size: 2.5rem;
+}
+
+.circle-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.token-id-detail {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  margin: 0;
+  word-break: break-all;
+  color: #00d4ff;
+}
+
+.contract-info {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin: 0;
+  color: #b0b0b0;
+  font-size: 0.9rem;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.btn-detail-primary,
+.btn-detail-secondary {
+  padding: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn-detail-primary {
+  background: linear-gradient(135deg, #0096ff 0%, #00d4ff 100%);
+  color: white;
+}
+
+.btn-detail-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 150, 255, 0.4);
+}
+
+.btn-detail-secondary {
+  background: rgba(0, 212, 255, 0.1);
+  color: #00d4ff;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.btn-detail-secondary:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: rgba(0, 212, 255, 0.6);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bobbing {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nft-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+
+  .inventory-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-back {
+    width: 100%;
+  }
+
+  .inventory-title {
+    font-size: 1.5rem;
+  }
+
+  .nft-detail-modal {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .inventory-container {
+    padding: 1rem;
+  }
+
+  .inventory-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .nft-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .nft-grid-image {
+    font-size: 2rem;
+  }
+
+  .nft-grid-info h3 {
+    font-size: 0.8rem;
+  }
+
+  .detail-image {
+    font-size: 4rem;
+  }
+
+  .rarity-circle-large {
+    width: 100px;
+    height: 100px;
+  }
+}
