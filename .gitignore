@@ -1,4 +1,4 @@
-build
+build/
 Move.lock
 node_modules
 dist

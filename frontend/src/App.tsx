@@ -16,7 +16,7 @@ interface NFT {
 }
 
 function App() {
-  const creatorObject = useNetworkVariable("creatorObjectId" as never);
+  const creatorObject = useNetworkVariable("gameObjectId");
   const [address] = useAccounts();
   // Track the currently-selected navbar tab so clicking tabs changes main content
   const [currentTab, setCurrentTab] = useState<string>("hatch");
@@ -74,8 +74,7 @@ function App() {
         )}
         {currentTab === "leaderboard" && (
           <div style={{ padding: 32 }}>
-            <h2>Leaderboard (placeholder)</h2>
-            <p>This view will show the leaderboard — implement as needed.</p>
+            <h2>Leaderboard (Update later...)</h2>
           </div>
         )}
       </Box>

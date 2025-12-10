@@ -1,7 +1,7 @@
 // src/components/LuckyEggGame.tsx
 import { useState, useEffect } from "react";
 import { useCurrentAccount, useSignAndExecuteTransaction } from "@iota/dapp-kit";
-import { TransactionBlock } from "@iota/iota-sdk/transactions";
+import { Transaction} from "@iota/iota-sdk/transactions";
 import { useNetworkVariables } from "../networkConfig";
 import HatchButton from "./HatchButton";
 import EggAnimation from "./EggAnimation";
@@ -70,7 +70,7 @@ export default function LuckyEggGame({
     setError(null);
 
     // call smart contract hatch function
-    const txb = new TransactionBlock();
+    const txb = new Transaction();
     
     // call func: lucky_egg::hatch(game, random, ctx)
     txb.moveCall({

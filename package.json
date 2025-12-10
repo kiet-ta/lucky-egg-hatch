@@ -1,0 +1,23 @@
+{
+  "name": "lucky-egg-hatch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "iota-deploy": "node scripts/iota-deploy-wrapper.js",
+    "iota-init": "node scripts/init-game.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiet-ta/lucky-egg-hatch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kiet-ta/lucky-egg-hatch/issues"
+  },
+  "homepage": "https://github.com/kiet-ta/lucky-egg-hatch#readme"
+}
