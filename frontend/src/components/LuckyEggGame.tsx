@@ -1,6 +1,8 @@
 // src/components/LuckyEggGame.tsx
 import { useState, useEffect } from "react";
-import { useAccounts } from "@iota/dapp-kit";
+import { useCurrentAccount, useSignAndExecuteTransaction } from "@iota/dapp-kit";
+import { TransactionBlock } from "@iota/iota-sdk/transactions";
+import { useNetworkVariables } from "../networkConfig";
 import HatchButton from "./HatchButton";
 import EggAnimation from "./EggAnimation";
 import ResultModal from "./ResultModal";
@@ -9,7 +11,7 @@ import "./LuckyEggGame.css";
 
 interface NFT {
   tokenId: string;
-  rarity: "Common" | "Rare" | "Epic";
+  rarity: "Common" | "Rare" | "Epic" | "Legendary";
   image: string;
   name: string;
 }
@@ -31,24 +33,24 @@ export default function LuckyEggGame({
   onHatchCountUpdate,
   dailyLimit,
 }: LuckyEggGameProps) {
-  const [address] = useAccounts();
+  const account = useCurrentAccount();
+  const networkVariables = useNetworkVariables();
+  const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction();
+
   const [gameState, setGameState] = useState<GameState>("idle");
   const [resultNFT, setResultNFT] = useState<NFT | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (address) {
-      checkDailyHatchCount();
+    if (account) {
+      // TODO: Ở đây nên fetch data thật từ chain để lấy hatchCount của user
+      // Hiện tại giữ logic update local tạm thời
+      if (hatchCount === 0) {
+        onHatchCountUpdate(0);
+      }
     }
-  }, [address]);
-
-  const checkDailyHatchCount = async () => {
-    // Initialize hatch count on mount if not already set
-    if (hatchCount === 0) {
-      onHatchCountUpdate(2);
-    }
-  };
+  }, [account]);
 
   const handleHatch = async () => {
     if (hatchCount >= dailyLimit) {
@@ -57,7 +59,7 @@ export default function LuckyEggGame({
       return;
     }
 
-    if (!address) {
+    if (!account) {
       setError("Please connect your wallet first.");
       setGameState("error");
       return;
@@ -67,54 +69,55 @@ export default function LuckyEggGame({
     setGameState("hatching");
     setError(null);
 
-    try {
-      await simulateHatchTransaction();
-
-      const weights = [70, 25, 5];
-      const random = Math.random() * 100;
-      let selectedRarity: "Common" | "Rare" | "Epic" = "Common";
-
-      if (random < weights[0]) {
-        selectedRarity = "Common";
-      } else if (random < weights[0] + weights[1]) {
-        selectedRarity = "Rare";
-      } else {
-        selectedRarity = "Epic";
-      }
-
-      const newNFT: NFT = {
-        tokenId: Math.random().toString(36).substr(2, 9),
-        rarity: selectedRarity,
-        image: getEggEmoji(selectedRarity),
-        name: `${selectedRarity} Egg #${Math.floor(Math.random() * 10000)}`,
-      };
-
-      setResultNFT(newNFT);
-      const updatedInventory = [...inventory, newNFT];
-      onInventoryUpdate(updatedInventory);
-      onHatchCountUpdate(hatchCount + 1);
-      setGameState("success");
-    } catch {
-      setError("Hatching failed! Please try again.");
-      setGameState("error");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const simulateHatchTransaction = () => {
-    return new Promise((resolve) => {
-      setTimeout(resolve, 3000);
+    // call smart contract hatch function
+    const txb = new TransactionBlock();
+    
+    // call func: lucky_egg::hatch(game, random, ctx)
+    txb.moveCall({
+      target: `${networkVariables.packageId}::lucky_egg::hatch`,
+      arguments: [
+        txb.object(networkVariables.gameObjectId), // HatchGame Object
+        txb.object(networkVariables.randomObjectId), // Random Object (0x8)
+      ],
     });
-  };
 
-  const getEggEmoji = (rarity: string) => {
-    const emojiMap: Record<string, string> = {
-      Common: "🥚",
-      Rare: "🦅",
-      Epic: "🐉",
-    };
-    return emojiMap[rarity] || "🥚";
+    signAndExecuteTransaction(
+      {
+        transaction: txb,
+      },
+      {
+        onSuccess: (result) => {
+          console.log("Hatch Success:", result);
+          
+          // Sau khi hatch thành công, lẽ ra cần parse Event để biết ra con gì.
+          // Để đơn giản hóa UI lúc này, ta sẽ hiển thị thông báo thành công trước.
+          // (Nâng cao: Dùng iotaClient.queryEvents để lấy kết quả Rarity thật)
+
+          // Tạm thời hiển thị kết quả giả lập ở Client để UI mượt mà, 
+          // nhưng giao dịch on-chain là THẬT.
+          const tempRarity = "Unknown (Check Wallet)"; 
+          
+          const newNFT: NFT = {
+            tokenId: result.digest.slice(0, 10), // Dùng Transaction Digest làm ID tạm
+            rarity: "Common", // Placeholder, user cần check wallet
+            image: "🥚",
+            name: `Hatched Egg (Processing)`,
+          };
+
+          setResultNFT(newNFT);
+          onInventoryUpdate([...inventory, newNFT]);
+          onHatchCountUpdate(hatchCount + 1);
+          setGameState("success");
+          setLoading(false);
+        },
+        onError: (err) => {
+          console.error("Hatch Failed:", err);
+          setError("Transaction failed or rejected. Please try again.");
+          setGameState("error");
+          setLoading(false);
+        },
+      }
+    );
   };
 
   const handleCloseResult = () => {
@@ -135,7 +138,7 @@ export default function LuckyEggGame({
       <Inventory
         nfts={inventory}
         onBack={handleBackToGame}
-        userAddress={address?.address || ""}
+        userAddress={account?.address || ""}
       />
     );
   }
@@ -144,7 +147,7 @@ export default function LuckyEggGame({
     <div className="egg-game-container">
       <div className="egg-game-header">
         <h1 className="egg-game-title">🥚 Lucky Egg Hatch 🥚</h1>
-        <p className="egg-game-subtitle">Hatch magical eggs and collect NFTs!</p>
+        <p className="egg-game-subtitle">Hatch magical eggs on IOTA EVM!</p>
       </div>
 
       <div className="egg-game-stats">
@@ -161,8 +164,8 @@ export default function LuckyEggGame({
         <div className="stat-card">
           <span className="stat-label">Wallet</span>
           <span className="stat-value">
-            {address?.address
-              ? `${address.address.slice(0, 6)}...${address.address.slice(-4)}`
+            {account?.address
+              ? `${account.address.slice(0, 6)}...${account.address.slice(-4)}`
               : "Not Connected"}
           </span>
         </div>
@@ -202,9 +205,9 @@ export default function LuckyEggGame({
       </div>
 
       <div className="egg-game-footer">
-        <p>🔄 Come back daily to hatch more eggs and collect rare NFTs!</p>
+        <p>Transaction required. Ensure you have IOTA tokens for gas.</p>
         <p className="footer-small">
-          Rarity: 70% Common • 25% Rare • 5% Epic
+          Rarity: Common • Rare • Epic • Legendary
         </p>
       </div>
     </div>
