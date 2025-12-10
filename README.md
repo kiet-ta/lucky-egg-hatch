@@ -142,7 +142,9 @@ To change the game mechanics, edit `contract/lucky_egg/sources/lucky_egg.move`.
   - [IOTA dApp Kit](https://github.com/iotaledger/dapp-kit)
   - [Move Language Book](https://move-book.com/)
 
-
+## Contract Address
+https://explorer.iota.org/object/0x41065a368e8e49886ed7c2d9e4638989bf4c3c1eabd02126a5dfcf59bfc95dfb?network=testnet
+![Lucky-Egg-Hatch](./Lucky-Egg-Hatch.png)
 ## 📄 License
 
 MIT
