@@ -3,7 +3,6 @@ const fs = require('fs');
 
 // The script will auto-read the Package ID from the frontend config file, no manual copy/paste needed
 const FRONTEND_CONFIG = 'frontend/src/networkConfig.ts';
-const NETWORK = 'devnet'; // Default devnet, change if needed
 
 // Default image/metadata URIs for egg types (You can update these later)
 const URIS = [

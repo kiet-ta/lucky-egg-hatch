@@ -6,9 +6,9 @@ const { networkConfig, useNetworkVariable, useNetworkVariables } =
     devnet: {
       url: getFullnodeUrl("devnet"),
       variables: {
-        packageId: "0xb38ba79987a371c18a558190ce41b2a51ff9cf637516cef304b44d3e19c7598c",
+        packageId: "0x41065a368e8e49886ed7c2d9e4638989bf4c3c1eabd02126a5dfcf59bfc95dfb",
         
-        gameObjectId: "0xe52da5cd2aa07cee61217878d26361cbf32b48c0fe902b9ac78603d673b51207",
+        gameObjectId: "0xfdb2a6acb4966ac718cfb17e07928a17b0ee50b38ebcef5d60b3354081096224",
         
         randomObjectId: "0x8" 
       }
@@ -16,16 +16,16 @@ const { networkConfig, useNetworkVariable, useNetworkVariables } =
     testnet: {
       url: getFullnodeUrl("testnet"),
       variables: {
-        packageId: "0xb38ba79987a371c18a558190ce41b2a51ff9cf637516cef304b44d3e19c7598c",
-        gameObjectId: "0xe52da5cd2aa07cee61217878d26361cbf32b48c0fe902b9ac78603d673b51207",
+        packageId: "0x41065a368e8e49886ed7c2d9e4638989bf4c3c1eabd02126a5dfcf59bfc95dfb",
+        gameObjectId: "0xfdb2a6acb4966ac718cfb17e07928a17b0ee50b38ebcef5d60b3354081096224",
         randomObjectId: "0x8"
       }
     },
     mainnet: {
       url: getFullnodeUrl("mainnet"),
       variables: {
-        packageId: "0xb38ba79987a371c18a558190ce41b2a51ff9cf637516cef304b44d3e19c7598c",
-        gameObjectId: "0xe52da5cd2aa07cee61217878d26361cbf32b48c0fe902b9ac78603d673b51207",
+        packageId: "0x41065a368e8e49886ed7c2d9e4638989bf4c3c1eabd02126a5dfcf59bfc95dfb",
+        gameObjectId: "0xfdb2a6acb4966ac718cfb17e07928a17b0ee50b38ebcef5d60b3354081096224",
         randomObjectId: "0x8"
       }
     },

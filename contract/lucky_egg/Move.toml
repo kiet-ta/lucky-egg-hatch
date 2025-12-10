@@ -4,7 +4,6 @@ version = "0.0.1"
 edition = "2024"
 
 [dependencies]
-Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/iota-framework", rev = "be06f419eaaa16e338875508a8e1b3469d77461c" }
 
 [addresses]
 lucky_egg = "0x0"

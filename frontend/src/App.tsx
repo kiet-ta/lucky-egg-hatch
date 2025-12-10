@@ -24,7 +24,7 @@ function App() {
   const [inventory, setInventory] = useState<NFT[]>([]);
   // Shared hatch count and daily limit across all tabs
   const [hatchCount, setHatchCount] = useState(0);
-  const [dailyLimit] = useState(5);
+  const [dailyLimit] = useState(100);
 
   useEffect(() => {
     if (!address) return; // tránh lỗi khi chưa có address
