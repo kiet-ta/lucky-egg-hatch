@@ -1,0 +1,106 @@
+/* Global styles to fix modal scrolling */
+
+/* Allow scrolling on body when modal is open */
+html,
+body {
+  overflow: visible !important;
+  height: auto !important;
+}
+
+/* Fix IOTA wallet modal - make it scrollable */
+[role="dialog"],
+[role="alertdialog"] {
+  max-height: 95vh !important;
+  height: auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Remove nested scroll containers */
+[role="dialog"] > div,
+[role="alertdialog"] > div {
+  overflow: visible !important;
+}
+
+/* Override Radix UI dialog styles and avoid overlay blocking clicks */
+[data-radix-dialog-overlay],
+.radix-dialog-overlay {
+  overflow: visible !important;
+  /* Prevent the overlay from intercepting pointer events by default.
+     Dialogs themselves ([role="dialog"]) will remain interactive. */
+  pointer-events: none !important;
+  z-index: 1000 !important;
+}
+
+/* Ensure dialog content stays interactive */
+[role="dialog"],
+[role="alertdialog"] {
+  pointer-events: auto !important;
+  z-index: 1001 !important;
+}
+
+/* Make navbar above overlays so tabs stay clickable */
+.navbar {
+  position: relative;
+  z-index: 1100;
+}
+
+/* Ensure modals and overlays don't block scrolling */
+body.modal-open,
+body.dialog-open {
+  overflow: auto !important;
+}
+
+/* IOTA specific modal fixes */
+.iota-modal,
+.iota-dialog,
+.iota-wallet-modal,
+[class*="modal"],
+[class*="dialog"] {
+  overflow: visible !important;
+}
+
+/* Remove scroll lock from any parent containers */
+.scroll-lock-enabled,
+[data-scroll-locked] {
+  overflow: auto !important;
+}
+
+/* Hide nested scrollbars in modals */
+[role="dialog"] ::-webkit-scrollbar,
+[role="alertdialog"] ::-webkit-scrollbar {
+  display: none;
+}
+
+/* Center the Install Wallet Extension button */
+/* Place the Install Wallet Extension button at end of the form
+   Make it part of the document flow (not absolutely positioned),
+   center it, and allow it to span the dialog width when needed. */
+/* Target the runtime-added class for reliability */
+.oclts-install-wallet-btn,
+button[innerHTML*="Install Wallet Extension"] {
+  position: static !important;
+  display: block !important;
+  margin: 1rem auto 0 auto !important;
+  padding: 0.5rem 1rem !important;
+  grid-column: 1 / -1 !important;
+  justify-self: center !important;
+}
+
+/* Move all buttons in dialogs to appear earlier visually */
+[role="dialog"] button,
+[role="alertdialog"] button {
+  margin-top: 0 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Reorder by making parent a grid and using order property */
+[role="dialog"],
+[role="alertdialog"] {
+  display: grid !important;
+  grid-auto-flow: row !important;
+}
+
+
+
+

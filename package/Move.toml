@@ -1,0 +1,14 @@
+[package]
+name = "live_concert"
+edition = "2024.beta" # edition = "legacy" to use legacy (pre-2024) Move
+
+[dependencies]
+Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/iota-framework", rev = "testnet" }
+
+[addresses]
+live_concert = "0x0"
+
+[dev-dependencies]
+
+[dev-addresses]
+
