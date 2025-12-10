@@ -8,11 +8,20 @@ import { useNetworkVariable } from "./networkConfig";
 import Navbar from "./components/Navbar";
 
 
+interface NFT {
+  tokenId: string;
+  rarity: "Common" | "Rare" | "Epic";
+  image: string;
+  name: string;
+}
+
 function App() {
   const creatorObject = useNetworkVariable("creatorObjectId" as never);
   const [address] = useAccounts();
   // Track the currently-selected navbar tab so clicking tabs changes main content
   const [currentTab, setCurrentTab] = useState<string>("hatch");
+  // Shared inventory state across all tabs
+  const [inventory, setInventory] = useState<NFT[]>([]);
 
   useEffect(() => {
     if (!address) return; // tránh lỗi khi chưa có address
@@ -44,16 +53,18 @@ function App() {
 
       {/* Nội dung chính của dApp - render based on selected tab */}
       <Box>
-        {currentTab === "hatch" && <LuckyEggGame />}
+        {currentTab === "hatch" && (
+          <LuckyEggGame
+            inventory={inventory}
+            onInventoryUpdate={setInventory}
+          />
+        )}
         {currentTab === "inventory" && (
           <Inventory
-            nfts={[]}
+            nfts={inventory}
             onBack={() => setCurrentTab("hatch")}
             userAddress={address?.address ?? "0x0"}
           />
-        )}
-        {currentTab === "stats" && (
-          <Home />
         )}
         {currentTab === "leaderboard" && (
           <div style={{ padding: 32 }}>

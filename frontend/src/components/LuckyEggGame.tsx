@@ -14,48 +14,30 @@ interface NFT {
   name: string;
 }
 
+interface LuckyEggGameProps {
+  inventory: NFT[];
+  onInventoryUpdate: (nfts: NFT[]) => void;
+}
+
 type GameState = "idle" | "hatching" | "success" | "error" | "inventory";
 
-export default function LuckyEggGame() {
+export default function LuckyEggGame({
+  inventory,
+  onInventoryUpdate,
+}: LuckyEggGameProps) {
   const [address] = useAccounts();
   const [gameState, setGameState] = useState<GameState>("idle");
   const [hatchCount, setHatchCount] = useState(0);
   const [dailyLimit] = useState(5);
   const [resultNFT, setResultNFT] = useState<NFT | null>(null);
-  const [inventory, setInventory] = useState<NFT[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (address) {
-      fetchUserInventory();
       checkDailyHatchCount();
     }
   }, [address]);
-
-  const fetchUserInventory = async () => {
-    const mockNFTs: NFT[] = [
-      {
-        tokenId: "1",
-        rarity: "Common",
-        image: "🥚",
-        name: "Fluffy Common Bird",
-      },
-      {
-        tokenId: "2",
-        rarity: "Rare",
-        image: "🦅",
-        name: "Golden Eagle",
-      },
-      {
-        tokenId: "3",
-        rarity: "Epic",
-        image: "🐉",
-        name: "Dragon Egg",
-      },
-    ];
-    setInventory(mockNFTs);
-  };
 
   const checkDailyHatchCount = async () => {
     setHatchCount(2);
@@ -101,7 +83,8 @@ export default function LuckyEggGame() {
       };
 
       setResultNFT(newNFT);
-      setInventory([...inventory, newNFT]);
+      const updatedInventory = [...inventory, newNFT];
+      onInventoryUpdate(updatedInventory);
       setHatchCount(hatchCount + 1);
       setGameState("success");
     } catch {

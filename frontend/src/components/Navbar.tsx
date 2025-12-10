@@ -41,13 +41,6 @@ export default function Navbar({ onNavigate }: NavbarProps) {
             <span className="tab-label">Inventory</span>
           </button>
           <button
-            className={`nav-tab ${activeTab === "stats" ? "active" : ""}`}
-            onClick={() => handleTabClick("stats")}
-          >
-            <span className="tab-icon">📊</span>
-            <span className="tab-label">Stats</span>
-          </button>
-          <button
             className={`nav-tab ${activeTab === "leaderboard" ? "active" : ""}`}
             onClick={() => handleTabClick("leaderboard")}
           >
