@@ -51,7 +51,6 @@ export default function Navbar({ onNavigate }: NavbarProps) {
 
         <div className="navbar-actions">
           <ConnectButton />
-          <button className="btn-admin">⚙️ Admin</button>
         </div>
       </div>
     </nav>
