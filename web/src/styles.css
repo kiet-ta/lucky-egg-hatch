@@ -1,0 +1,212 @@
+:root {
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  color: #e9ecf2;
+  background: radial-gradient(circle at 20% 20%, #1f2740, #0b0f1f 55%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: transparent;
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #7ab7ff;
+  font-size: 12px;
+  margin: 0 0 6px;
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 28px;
+}
+
+.sub {
+  margin: 0;
+  color: #aab6d6;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.35);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #c8d0ea;
+}
+
+.field input {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #e9ecf2;
+  outline: none;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.primary {
+  background: linear-gradient(120deg, #48b6ff, #7e7bff);
+  color: #0b0f1f;
+}
+
+.ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e9ecf2;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.ghost-outline {
+  background: rgba(72, 182, 255, 0.15);
+  color: #7ab7ff;
+  border: 1px solid rgba(72, 182, 255, 0.45);
+}
+
+.muted {
+  color: #9aa4c2;
+  margin: 0;
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rarity {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.rarity.common {
+  background: rgba(255, 255, 255, 0.12);
+  color: #e9ecf2;
+}
+
+.rarity.rare {
+  background: rgba(120, 185, 255, 0.16);
+  color: #7ab7ff;
+}
+
+.rarity.epic {
+  background: rgba(255, 196, 120, 0.18);
+  color: #ffc778;
+}
+
+.rarity.legendary {
+  background: rgba(255, 94, 94, 0.2);
+  color: #ff6b6b;
+  box-shadow: 0 0 12px rgba(255, 94, 94, 0.35);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.token {
+  margin: 0;
+  font-weight: 600;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 8, 20, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 20;
+}
+
+.modal {
+  background: #0f1628;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  max-width: 720px;
+  width: 100%;
+  max-height: 80vh;
+  overflow: auto;
+  padding: 16px;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.55);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+select {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgb(0, 145, 255);
+  padding: 8px 10px;
+  border-radius: 10px;
+}
